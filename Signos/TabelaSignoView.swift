@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TabelaSignoView.swift
 //  Signos
 //
 //  Created by Renilson Santana on 12/05/21.
@@ -7,23 +7,11 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TabelaSignoView: UITableViewController {
     
     // MARK: - Atributos
     
     var listaDeSignos: [Signo] = []
-
-    // MARK: - IBOutlets
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    // MARK: - life cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        criaSignos()
-        tableView.reloadData()
-    }
     
     // MARK: - Metodos
     
@@ -37,29 +25,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    // MARK: - UITableViewDataSource
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listaDeSignos.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tabelaSignos", for: indexPath)
         cell.textLabel?.text = listaDeSignos[indexPath.row].nome
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        let alert = UIAlertController(title: listaDeSignos[indexPath.row].nome, message: listaDeSignos[indexPath.row].sobre, preferredStyle: .alert)
-        
-        let btnOK = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(btnOK)
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    
-}
 
+}
